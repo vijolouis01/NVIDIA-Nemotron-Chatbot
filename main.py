@@ -21,19 +21,23 @@ question = input('Enter your Question: ')
 if not question.strip():
     print("Please enter question")
     exit()
+try:    
+    response = client.chat.completions.create(
+        model = 'nvidia/nemotron-3.5-super-vl-120b-a12b',
+        messages=[
+            {
+                'role': 'user',
+                'content': question
+            }
+        ],
+        max_tokens=500
+    )
 
-response = client.chat.completions.create(
-    model = 'nvidia/nemotron-3.5-super-vl-120b-a12b',
-    messages=[
-        {
-            'role': 'user',
-            'content': question
-        }
-    ],
-    max_tokens=500
-)
+    print(response.choices[0].message.content)
 
-print(response.choices[0].message.content)
+except Exception as error:
+    print("Something went wrong while contacting AI.")
+    print(f"Error: {error}")
 
 
 
