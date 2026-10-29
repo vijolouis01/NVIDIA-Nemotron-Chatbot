@@ -16,9 +16,11 @@ client = OpenAI(
     api_key = api_key
 )
 
+messages = []
+
 while True:
 
-    question = input("\nEnter your Question (or type 'exit' to stop): ")
+    question = input("\nYou (or type 'exit' to stop): ")
 
     if not question.strip():
         print("\nPlease enter question")
@@ -27,24 +29,33 @@ while True:
     if question.strip().lower() == 'exit':
         print("\nGoodbye!")
         break
+
+    messages.append({
+        'role' : 'user',
+        'content' : question
+    })
         
     try:    
         response = client.chat.completions.create(
             model = 'nvidia/nemotron-3.5-super-vl-120b-a12b',
-            messages=[
-                {
-                    'role': 'user',
-                    'content': question
-                }
-            ],
+            messages=messages,
             max_tokens=500
         )
 
-        print(response.choices[0].message.content)
+        answer = response.choices[0].message.content
+
+        print(f"\nAI: {answer}")
+
+        messages.append(
+            {
+                'role': 'assistant',
+                'content': answer
+            }
+        )
 
     except Exception as error:
-        print("Something went wrong while contacting AI.")
-        print(f"Error: {error}")
+        print(f"Something went wrong {error}")
+        messages.pop()
 
 
 
