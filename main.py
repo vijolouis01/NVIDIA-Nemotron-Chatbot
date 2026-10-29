@@ -16,7 +16,12 @@ client = OpenAI(
     api_key = api_key
 )
 
-messages = []
+messages = [
+     {
+        "role": "system",
+        "content": "You are a friendly Python tutor. Explain concepts in simple English and give short examples."
+    }
+]
 
 while True:
 
@@ -60,7 +65,7 @@ while True:
 
 
     def main():
-        print("Hello from llm-learning!")
+        print("\nHello from llm-learning!")
 
 
     if __name__ == "__main__":
