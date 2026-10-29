@@ -16,12 +16,18 @@ client = OpenAI(
     api_key = api_key
 )
 
+question = input('Enter your Question: ')
+
+if not question.strip():
+    print("Please enter question")
+    exit()
+
 response = client.chat.completions.create(
     model = 'nvidia/nemotron-3.5-super-vl-120b-a12b',
     messages=[
         {
             'role': 'user',
-            'content': "Explain Python variable with simple example"
+            'content': question
         }
     ],
     max_tokens=500
