@@ -44,12 +44,18 @@ while True:
         response = client.chat.completions.create(
             model = 'nvidia/nemotron-3.5-super-vl-120b-a12b',
             messages=messages,
-            max_tokens=500
+            max_tokens=1000,
         )
 
         answer = response.choices[0].message.content
 
         print(f"\nAI: {answer}")
+
+        with open('chat_history.txt', 'a') as file:
+            file.write(f"You: {question}\n")
+            file.write(f"AI: {answer}\n\n")
+            file.write("=======================================================================")
+
 
         messages.append(
             {
