@@ -1,4 +1,4 @@
-# NVIDIA Nemotron Chatbot
+# Chatbot
 
 ## About
 A simple AI chatbot built using Python and the NVIDIA Nemotron API.
